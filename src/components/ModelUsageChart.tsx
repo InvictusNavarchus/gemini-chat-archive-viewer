@@ -31,14 +31,14 @@ const ModelUsageChart: React.FC<ModelUsageChartProps> = ({ chatHistory }) => {
             <BarChart data={chartData}>
               <XAxis 
                 dataKey="model" 
-                stroke="#888888"
-                fontSize={12}
+                stroke="#000000"
+                fontSize={16}
                 tickLine={false}
                 axisLine={false}
               />
               <YAxis
-                stroke="#888888"
-                fontSize={12}
+                stroke="#000000"
+                fontSize={14}
                 tickLine={false}
                 axisLine={false}
               />
