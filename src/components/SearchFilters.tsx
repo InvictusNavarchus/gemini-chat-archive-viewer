@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
@@ -44,7 +43,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
               <SelectValue placeholder="All models" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All models</SelectItem>
+              <SelectItem value="all">All models</SelectItem>
               {uniqueModels
                 .filter(model => model && model.trim() !== "")
                 .map((model) => (

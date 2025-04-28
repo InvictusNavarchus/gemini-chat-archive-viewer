@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import FileUpload from '../components/FileUpload';
 import ChatCard from '../components/ChatCard';
@@ -14,7 +13,7 @@ const Index = () => {
   const [chatHistory, setChatHistory] = useState<GeminiChatHistory>([]);
   const [selectedChat, setSelectedChat] = useState<GeminiChat | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [modelFilter, setModelFilter] = useState('');
+  const [modelFilter, setModelFilter] = useState('all');  // Changed from '' to 'all'
   const [sortOrder, setSortOrder] = useState('newest');
 
   const handleFileLoaded = (data: GeminiChatHistory) => {
@@ -42,8 +41,8 @@ const Index = () => {
           ((chat.title?.toLowerCase() || '').includes(searchTerm.toLowerCase()) || 
           (chat.prompt?.toLowerCase() || '').includes(searchTerm.toLowerCase()));
         
-        // Apply model filter
-        const modelMatch = !modelFilter || chat.model === modelFilter;
+        // Apply model filter (updated to handle 'all' value)
+        const modelMatch = modelFilter === 'all' || chat.model === modelFilter;
         
         return searchMatch && modelMatch;
       })
