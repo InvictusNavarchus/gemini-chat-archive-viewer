@@ -39,7 +39,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileLoaded }) => {
   };
 
   const handleFile = (file: File) => {
-    if (file.type !== 'application/json') {
+    if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
       toast.error('Please upload a JSON file');
       return;
     }
@@ -52,8 +52,21 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileLoaded }) => {
           toast.error('Invalid format: JSON should be an array');
           return;
         }
-        onFileLoaded(jsonData);
-        toast.success('Chat history loaded successfully');
+        
+        // Process the data before passing it up
+        const processedData = jsonData.map((chat) => ({
+          timestamp: chat.timestamp || "",
+          url: chat.url || "",
+          title: chat.title || "Untitled Chat",
+          model: chat.model || "Unknown",
+          prompt: chat.prompt || "",
+          attachedFiles: Array.isArray(chat.attachedFiles) ? chat.attachedFiles : [],
+          accountName: chat.accountName || "",
+          accountEmail: chat.accountEmail || ""
+        }));
+        
+        onFileLoaded(processedData);
+        toast.success(`Successfully loaded ${processedData.length} chat history records`);
       } catch (error) {
         toast.error('Error parsing JSON file');
         console.error('Error parsing JSON:', error);
