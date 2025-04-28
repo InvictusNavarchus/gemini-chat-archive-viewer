@@ -18,12 +18,27 @@ const Index = () => {
   const [sortOrder, setSortOrder] = useState('newest');
 
   const handleFileLoaded = (data: GeminiChatHistory) => {
-    setChatHistory(data);
+    // Ensure all required fields exist in each chat object
+    const sanitizedData = data.map(chat => ({
+      timestamp: chat.timestamp || "",
+      url: chat.url || "",
+      title: chat.title || "Untitled Chat",
+      model: chat.model || "Unknown",
+      prompt: chat.prompt || "",
+      attachedFiles: chat.attachedFiles || [],
+      accountName: chat.accountName,
+      accountEmail: chat.accountEmail
+    }));
+    setChatHistory(sanitizedData);
   };
 
   // Get unique models for the filter dropdown
   const uniqueModels = useMemo(() => {
-    const models = Array.from(new Set(chatHistory.map(chat => chat.model || 'Unknown')));
+    const models = Array.from(new Set(
+      chatHistory
+        .map(chat => chat.model || 'Unknown')
+        .filter(model => model && model.trim() !== "") // Filter out empty strings
+    ));
     return models;
   }, [chatHistory]);
 
@@ -33,8 +48,8 @@ const Index = () => {
       .filter(chat => {
         // Apply search filter
         const searchMatch = !searchTerm || 
-          chat.title?.toLowerCase().includes(searchTerm.toLowerCase()) || 
-          chat.prompt?.toLowerCase().includes(searchTerm.toLowerCase());
+          (chat.title?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+          chat.prompt?.toLowerCase().includes(searchTerm.toLowerCase()));
         
         // Apply model filter
         const modelMatch = !modelFilter || chat.model === modelFilter;

@@ -45,11 +45,13 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="">All models</SelectItem>
-              {uniqueModels.map((model) => (
-                <SelectItem key={model} value={model}>
-                  {model}
-                </SelectItem>
-              ))}
+              {uniqueModels
+                .filter(model => model && model.trim() !== "") // Filter out empty strings
+                .map((model) => (
+                  <SelectItem key={model} value={model}>
+                    {model}
+                  </SelectItem>
+                ))}
             </SelectContent>
           </Select>
         </div>
