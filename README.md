@@ -1,73 +1,121 @@
-# Welcome to your Lovable project
 
-## Project info
+# Gemini Chat Archive Viewer
 
-**URL**: https://lovable.dev/projects/9e5f2c3e-3b53-4603-87a1-a4a63e784703
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-## How can I edit this code?
+A responsive web application for visualizing and analyzing archived Google Gemini chat history. This project works in conjunction with the [Gemini Chat History Manager](https://github.com/InvictusNavarchus/gemini-chat-history) userscript to provide enhanced data visualization and exploration capabilities.
 
-There are several ways of editing your application.
+## 🌟 Features
 
-**Use Lovable**
+- **JSON Import**: Easily upload and parse Gemini chat history JSON files
+- **Comprehensive Dashboard**:
+  - Statistical overview of your chat interactions
+  - Model usage distribution visualization
+  - Chronological chat activity metrics
+- **Advanced Filtering**:
+  - Search by title or prompt content
+  - Filter by AI model type
+  - Multiple sorting options (newest, oldest, alphabetical)
+- **Detailed Chat Views**: Examine individual chat metadata including:
+  - Timestamp
+  - Original URL
+  - Selected model
+  - Full prompt text
+  - Attached files
+  - Account information
+- **Responsive Design**: Works seamlessly across desktop and mobile devices
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/9e5f2c3e-3b53-4603-87a1-a4a63e784703) and start prompting.
+## 📊 Data Visualization
 
-Changes made via Lovable will be committed automatically to this repo.
+The application provides visual analytics of your chat history:
 
-**Use your preferred IDE**
+- **Model Usage Chart**: Bar graph showing the distribution of chats across different Gemini models
+- **Activity Timeline**: View your chat activity over time
+- **Summary Statistics**: Quick insights into your total chats, most used models, and more
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🔒 Privacy
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+Your data stays private and secure:
 
-Follow these steps:
+- **Client-side Processing**: All data handling occurs locally in your browser
+- **No Server Storage**: Imported JSON files are never uploaded to a remote server
+- **No Tracking**: No analytics or user tracking implemented
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 🧩 Compatible Data Structure
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+The application expects JSON files with the following structure per chat entry:
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```json
+{
+  "timestamp": "2025-04-28T09:45:21",
+  "url": "https://gemini.google.com/app/57b902e9742e4d13",
+  "title": "Research Plan: Women's Sexual Desire",
+  "model": "Deep Research",
+  "prompt": "deeply investigate everything about...",
+  "attachedFiles": ["filename1.pdf", "filename2.jpg"],
+  "accountName": "User Name",
+  "accountEmail": "user@example.com"
+}
 ```
 
-**Edit a file directly in GitHub**
+> **Note**: The application handles missing fields gracefully by providing default values where appropriate.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 🛠️ Technology Stack
 
-**Use GitHub Codespaces**
+- **React**: Frontend UI library
+- **TypeScript**: Type-safe JavaScript
+- **Tailwind CSS**: Utility-first CSS framework
+- **shadcn/ui**: Accessible component library
+- **Recharts**: Composable charting library
+- **Vite**: Next generation frontend tooling
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 🚀 Getting Started
 
-## What technologies are used for this project?
+### Prerequisites
 
-This project is built with:
+- Node.js (v16+)
+- npm or yarn
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Installation
 
-## How can I deploy this project?
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/gemini-chat-archive-viewer.git
+   cd gemini-chat-archive-viewer
+   ```
 
-Simply open [Lovable](https://lovable.dev/projects/9e5f2c3e-3b53-4603-87a1-a4a63e784703) and click on Share -> Publish.
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn
+   ```
 
-## Can I connect a custom domain to my Lovable project?
+3. Start the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-Yes, you can!
+4. Open your browser and navigate to `http://localhost:5173`
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## 🌐 Deployment
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+The project can be built for production using:
+
+```bash
+npm run build
+# or
+yarn build
+```
+
+The output in the `dist` directory can be deployed to any static hosting service.
+
+## 🤝 Related Projects
+
+This application is designed to work with data exported from the [Gemini Chat History Manager](https://github.com/InvictusNavarchus/gemini-chat-history) userscript, which automatically tracks and exports Google Gemini chat sessions.
+
+## 📄 License
+
+This project is licensed under the GNU General Public License v3.0 - see the LICENSE file for details.
