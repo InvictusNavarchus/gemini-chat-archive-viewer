@@ -1,7 +1,8 @@
+
 import React, { useState, useMemo } from 'react';
 import FileUpload from '../components/FileUpload';
 import ChatCard from '../components/ChatCard';
-import ChatDetail from '../components/ChatDetail';
+import ChatSidebar from '../components/ChatSidebar';
 import SearchFilters from '../components/SearchFilters';
 import Header from '../components/Header';
 import EmptyState from '../components/EmptyState';
@@ -13,13 +14,22 @@ const Index = () => {
   const [chatHistory, setChatHistory] = useState<GeminiChatHistory>([]);
   const [selectedChat, setSelectedChat] = useState<GeminiChat | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [modelFilter, setModelFilter] = useState('all');  // Changed from '' to 'all'
+  const [modelFilter, setModelFilter] = useState('all');
   const [sortOrder, setSortOrder] = useState('newest');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleFileLoaded = (data: GeminiChatHistory) => {
-    // No additional sanitization needed here since FileUpload component now handles it
     setChatHistory(data);
     console.log("Chat history loaded:", data.length, "items");
+  };
+
+  const handleChatSelect = (chat: GeminiChat) => {
+    setSelectedChat(chat);
+    setIsSidebarOpen(true);
+  };
+
+  const handleCloseSidebar = () => {
+    setIsSidebarOpen(false);
   };
 
   // Get unique models for the filter dropdown
@@ -68,8 +78,6 @@ const Index = () => {
           <div className="max-w-md mx-auto">
             <FileUpload onFileLoaded={handleFileLoaded} />
           </div>
-        ) : selectedChat ? (
-          <ChatDetail chat={selectedChat} onBack={() => setSelectedChat(null)} />
         ) : (
           <>
             <StatsOverview chatHistory={chatHistory} />
@@ -90,7 +98,7 @@ const Index = () => {
                   <ChatCard 
                     key={index} 
                     chat={chat} 
-                    onClick={() => setSelectedChat(chat)} 
+                    onClick={() => handleChatSelect(chat)} 
                   />
                 ))}
               </div>
@@ -100,6 +108,13 @@ const Index = () => {
           </>
         )}
       </main>
+
+      {/* Chat Details Sidebar */}
+      <ChatSidebar 
+        isOpen={isSidebarOpen}
+        onClose={handleCloseSidebar}
+        chat={selectedChat}
+      />
     </div>
   );
 };
