@@ -9,6 +9,7 @@ import { Badge } from './ui/badge';
 interface ChatCardProps {
   chat: GeminiChat;
   onClick: () => void;
+  isExpanded?: boolean;
 }
 
 const ModelBadge: React.FC<{ model: string }> = ({ model }) => {
@@ -27,24 +28,26 @@ const ModelBadge: React.FC<{ model: string }> = ({ model }) => {
   );
 };
 
-const ChatCard: React.FC<ChatCardProps> = ({ chat, onClick }) => {
+const ChatCard: React.FC<ChatCardProps> = ({ chat, onClick, isExpanded = false }) => {
   const formattedDate = chat.timestamp 
     ? formatDistanceToNow(parseISO(chat.timestamp), { addSuffix: true })
     : "Unknown date";
 
   return (
     <Card 
-      className="gemini-card cursor-pointer animate-fade-in"
+      className={`gemini-card cursor-pointer animate-fade-in ${isExpanded ? 'h-full' : ''}`}
       onClick={onClick}
     >
       <CardHeader className="pb-2">
         <div className="flex justify-between items-start gap-2">
-          <h3 className="font-medium text-base truncate">{chat.title || "Untitled Chat"}</h3>
+          <h3 className={`font-medium text-base ${isExpanded ? '' : 'truncate'}`}>
+            {chat.title || "Untitled Chat"}
+          </h3>
           <ModelBadge model={chat.model} />
         </div>
       </CardHeader>
       <CardContent>
-        <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
+        <p className={`text-sm text-muted-foreground mb-3 ${isExpanded ? 'line-clamp-3' : 'line-clamp-2'}`}>
           {chat.prompt || "No prompt available"}
         </p>
         

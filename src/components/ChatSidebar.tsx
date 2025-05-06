@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { GeminiChat } from '../types/gemini';
 import { Badge } from './ui/badge';
@@ -14,8 +15,6 @@ interface ChatSidebarProps {
 }
 
 const ChatSidebar: React.FC<ChatSidebarProps> = ({ isOpen, onClose, chat }) => {
-  // We're removing the body overflow: hidden as it's causing the scrolling issues
-  
   if (!chat || !isOpen) return null;
 
   const formattedDate = chat.timestamp 
@@ -27,9 +26,9 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ isOpen, onClose, chat }) => {
     : "Unknown time";
 
   return (
-    <div className="fixed inset-y-0 right-0 z-40 w-[400px] sm:w-[540px] pointer-events-none">
+    <div className="fixed inset-y-0 right-0 z-40 w-[320px] sm:w-[380px] pointer-events-none">
       <div className="absolute inset-0 pointer-events-auto" onClick={onClose}>
-        <div className="absolute inset-y-0 right-0 w-[400px] sm:w-[540px] bg-background shadow-xl h-full"
+        <div className="absolute inset-y-0 right-0 w-[320px] sm:w-[380px] bg-background shadow-xl h-full"
           onClick={(e) => e.stopPropagation()}
         >
           <Card className="h-full flex flex-col border-none rounded-none shadow-none">
@@ -44,9 +43,9 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ isOpen, onClose, chat }) => {
                 <span className="sr-only">Close</span>
               </Button>
               
-              <div className="flex justify-between items-center pr-8">
+              <div className="flex flex-col pr-8">
                 <h2 className="text-lg font-semibold">{chat.title || "Untitled Chat"}</h2>
-                <Badge className="bg-gemini text-white self-start">
+                <Badge className="bg-gemini text-white self-start mt-2">
                   {chat.model || "Unknown model"}
                 </Badge>
               </div>
@@ -64,10 +63,10 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ isOpen, onClose, chat }) => {
             </CardHeader>
 
             <ScrollArea className="flex-1">
-              <CardContent className="py-6 space-y-6">
+              <CardContent className="py-4 space-y-4">
                 <div>
                   <h3 className="text-sm font-medium mb-2">Prompt</h3>
-                  <div className="bg-muted p-4 rounded-md">
+                  <div className="bg-muted p-3 rounded-md">
                     <p className="text-sm whitespace-pre-wrap">{chat.prompt || "No prompt available"}</p>
                   </div>
                 </div>
@@ -78,7 +77,7 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ isOpen, onClose, chat }) => {
                       <FileText className="h-4 w-4" />
                       Attached Files ({chat.attachedFiles.length})
                     </h3>
-                    <ul className="bg-muted p-4 rounded-md space-y-1">
+                    <ul className="bg-muted p-3 rounded-md space-y-1">
                       {chat.attachedFiles.map((file, index) => (
                         <li key={index} className="text-sm truncate">
                           {file}
@@ -104,10 +103,10 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ isOpen, onClose, chat }) => {
                 variant="outline" 
                 size="sm"
                 onClick={() => window.open(chat.url, '_blank')}
-                className="gap-1"
+                className="gap-1 w-full"
               >
                 <ExternalLink className="w-4 h-4" />
-                Open Original Conversation
+                Open Original
               </Button>
             </CardFooter>
           </Card>

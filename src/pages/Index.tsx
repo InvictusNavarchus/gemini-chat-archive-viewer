@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo } from 'react';
 import FileUpload from '../components/FileUpload';
 import ChatCard from '../components/ChatCard';
@@ -71,7 +72,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Header />
       
-      <main className={`container px-4 pb-16 transition-all duration-300 ${isSidebarOpen ? 'pr-[400px] sm:pr-[540px]' : ''}`}>
+      <main className={`container px-4 pb-16 transition-all duration-300 ${isSidebarOpen ? 'pr-[340px] sm:pr-[400px]' : ''}`}>
         {chatHistory.length === 0 ? (
           <div className="max-w-md mx-auto">
             <FileUpload onFileLoaded={handleFileLoaded} />
@@ -91,12 +92,13 @@ const Index = () => {
             />
             
             {filteredChats.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className={`grid gap-4 ${isSidebarOpen ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'}`}>
                 {filteredChats.map((chat, index) => (
                   <ChatCard 
                     key={index} 
                     chat={chat} 
-                    onClick={() => handleChatSelect(chat)} 
+                    onClick={() => handleChatSelect(chat)}
+                    isExpanded={isSidebarOpen}
                   />
                 ))}
               </div>
