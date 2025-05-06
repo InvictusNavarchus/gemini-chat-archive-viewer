@@ -71,7 +71,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Header />
       
-      <main className={`container px-4 pb-16 transition-all duration-300 ${isSidebarOpen ? 'pr-[400px] sm:pr-[540px]' : ''}`}>
+      <main className="container px-4 pb-16">
         {chatHistory.length === 0 ? (
           <div className="max-w-md mx-auto">
             <FileUpload onFileLoaded={handleFileLoaded} />
