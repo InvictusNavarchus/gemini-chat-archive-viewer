@@ -12,7 +12,7 @@ import {
   SheetDescription,
   SheetFooter
 } from './ui/sheet';
-import { Calendar, Clock, FileText, MessageSquare, ExternalLink, X } from 'lucide-react';
+import { Calendar, Clock, FileText, MessageSquare, ExternalLink } from 'lucide-react';
 
 interface ChatSidebarProps {
   isOpen: boolean;

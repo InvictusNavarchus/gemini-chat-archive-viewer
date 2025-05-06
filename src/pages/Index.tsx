@@ -8,7 +8,6 @@ import Header from '../components/Header';
 import EmptyState from '../components/EmptyState';
 import StatsOverview from '../components/StatsOverview';
 import { GeminiChatHistory, GeminiChat } from '../types/gemini';
-import { Toaster } from 'sonner';
 
 const Index = () => {
   const [chatHistory, setChatHistory] = useState<GeminiChatHistory>([]);
@@ -51,7 +50,7 @@ const Index = () => {
           ((chat.title?.toLowerCase() || '').includes(searchTerm.toLowerCase()) || 
           (chat.prompt?.toLowerCase() || '').includes(searchTerm.toLowerCase()));
         
-        // Apply model filter (updated to handle 'all' value)
+        // Apply model filter
         const modelMatch = modelFilter === 'all' || chat.model === modelFilter;
         
         return searchMatch && modelMatch;
